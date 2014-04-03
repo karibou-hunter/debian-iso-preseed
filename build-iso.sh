@@ -24,7 +24,7 @@ else
 fi
 
 # dependency
-which mkisofs > /dev/null || sudo aptitude install mkisofs
+which genisoimage > /dev/null || sudo aptitude install genisoimage
 
 # extract initrd.gz somewhere else
 mkdir initrd; cd initrd
@@ -41,7 +41,7 @@ md5sum $(find -type f ! -name "md5sum.txt" ! -path "./isolinux/*" ! -name "debia
 cd ..
 [ -f "isolinux.cfg" ] && cp isolinux.cfg ${sourcedir}/isolinux/isolinux.cfg
 chmod -R u-w ${sourcedir}
-sudo mkisofs -o ${sourcedir}_custom.iso \
+sudo genisoimage -o ${sourcedir}_custom.iso \
 	-V di$(date -u +%m%d%H%M%S) \
 	-r -J -no-emul-boot -boot-load-size 4 -boot-info-table \
 	-b isolinux/isolinux.bin -c isolinux/boot.cat \
